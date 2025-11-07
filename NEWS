@@ -1,3 +1,28 @@
+49.0
+49.rc
+- symbolic: night light (issue #292)
+- symbolic: battery rendered as square (issue #310)
+
+49.beta
+- symbolic: plugged variants of battery status (issue gnome-shell/#5228)
+- symbolic: vpn metaphor (issue gnome-shell/#8495)
+- symbolic: gtk rendering optimizations (issue #305)
+- cursors: fleur -> all-resize
+- cursors: DND cleanup (issue #303)
+
+48.0
+- symbolic: pan-* old design was in place for -rtl
+- cursors: added dnd-ask on gtk request
+
+48.beta
+- drop spinner (process-working). libadwaita provides one
+
+48.alpha
+- cursors: adjust asset sizing to feel more linear (issue #294, #295)
+- build cleanup
+- symbolic: power profile metaphors (issue #284)
+- symbolic: pan icons (Sam)
+- symbolic: remove emblems (issue #287)
 47.0
 47.beta
 - cursors: updated spinners to match libadwaita

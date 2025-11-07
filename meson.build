@@ -1,4 +1,4 @@
-project('adwaita-icon-theme', version : '47.0', meson_version : '>= 0.64.0')
+project('adwaita-icon-theme', version : '49.0', meson_version : '>= 0.64.0')
 
 pkg = import('pkgconfig')
 pkg.generate(
@@ -22,6 +22,23 @@ install_subdir(
   strip_directory : true,
   install_tag : 'runtime',
 )
+
+files('Adwaita/scalable/places/folder.svg')
+if host_machine.system() == 'windows'
+  install_data(
+    'Adwaita/scalable/places/folder.svg',
+    install_dir: adwaita_dir / 'scalable' / 'status',
+    rename: 'folder-open.svg',
+    install_tag : 'runtime',
+  )
+else
+  install_symlink(
+    'folder-open.svg',
+    install_dir: adwaita_dir / 'scalable' / 'status',
+    install_tag: 'runtime',
+    pointing_to: '../places/folder.svg',
+  )
+endif
 
 command_output = run_command('tools/find_cursors_win32.py', check: true)
 win32_cursors = command_output.stdout().strip().split('\n')
@@ -48,11 +65,13 @@ else
     # Each one is of the form:
     # 'css-name': ['x11-name', 'x11-name', ...],
 
+    'all-resize': ['fleur'],
     'crosshair': ['cross', 'cross_reverse', 'diamond_cross', 'tcross'],
+    'context-menu': ['dnd-ask'],
 
     # move and dnd-move are separate contexts
     # https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/issues/286
-    'default': ['arrow', 'dnd-move', 'left_ptr', 'top_left_arrow'],
+    'default': ['arrow', 'dnd-move', 'left_ptr', 'top_left_arrow', 'move'],
 
     'e-resize': ['right_side'],
     'ew-resize': ['sb_h_double_arrow'],
@@ -72,10 +91,6 @@ else
     'w-resize': ['left_side'],
     'wait': ['watch'],
 
-    # Currently the move cursor is a 4-pointed arrow, but if its visual
-    # metaphor ever changes, this should probably become
-    # 'all-scroll': ['fleur'] as the next-closest equivalent.
-    'move': ['fleur'],
   }
   foreach src, dests : cursor_symlinks
     # This acts as an assertion that the src is a cursor that exists
